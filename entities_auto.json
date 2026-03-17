@@ -1,0 +1,430 @@
+{
+  "updated_at": "2026-03-16T09:46:29.880267+00:00",
+  "CRYPTO": {
+    "FIGR_HELOC": [
+      "Figure Heloc",
+      "FIGR_HELOC"
+    ],
+    "WBT": [
+      "WhiteBIT Coin",
+      "WBT"
+    ],
+    "USDS": [
+      "USDS",
+      "USDS"
+    ],
+    "BCH": [
+      "Bitcoin Cash",
+      "BCH"
+    ],
+    "HYPE": [
+      "Hyperliquid",
+      "HYPE"
+    ],
+    "LEO": [
+      "LEO Token",
+      "LEO"
+    ],
+    "XMR": [
+      "Monero",
+      "XMR"
+    ],
+    "USDE": [
+      "Ethena USDe",
+      "USDE"
+    ],
+    "XLM": [
+      "Stellar",
+      "XLM"
+    ],
+    "CC": [
+      "Canton",
+      "CC"
+    ],
+    "USD1": [
+      "USD1",
+      "USD1"
+    ],
+    "RAIN": [
+      "Rain",
+      "RAIN"
+    ],
+    "HBAR": [
+      "Hedera",
+      "HBAR"
+    ],
+    "PYUSD": [
+      "PayPal USD",
+      "PYUSD"
+    ],
+    "ZEC": [
+      "Zcash",
+      "ZEC"
+    ],
+    "CRO": [
+      "Cronos",
+      "CRO"
+    ],
+    "WLFI": [
+      "World Liberty Financial",
+      "WLFI"
+    ],
+    "XAUT": [
+      "Tether Gold",
+      "XAUT"
+    ],
+    "TAO": [
+      "Bittensor",
+      "TAO"
+    ],
+    "MNT": [
+      "Mantle",
+      "MNT"
+    ],
+    "M": [
+      "MemeCore",
+      "M"
+    ],
+    "PAXG": [
+      "PAX Gold",
+      "PAXG"
+    ],
+    "USYC": [
+      "Circle USYC",
+      "USYC"
+    ],
+    "OKB": [
+      "OKB",
+      "OKB"
+    ],
+    "BUIDL": [
+      "BlackRock USD Institutional Digital Liquidity Fund",
+      "BUIDL"
+    ],
+    "PI": [
+      "Pi Network",
+      "PI"
+    ],
+    "AAVE": [
+      "Aave",
+      "AAVE"
+    ],
+    "ASTER": [
+      "Aster",
+      "ASTER"
+    ],
+    "USDG": [
+      "Global Dollar",
+      "USDG"
+    ],
+    "USDF": [
+      "Falcon USD",
+      "USDF"
+    ],
+    "PEPE": [
+      "Pepe",
+      "PEPE"
+    ],
+    "SKY": [
+      "Sky",
+      "SKY"
+    ],
+    "RLUSD": [
+      "Ripple USD",
+      "RLUSD"
+    ],
+    "BGB": [
+      "Bitget Token",
+      "BGB"
+    ],
+    "HTX": [
+      "HTX DAO",
+      "HTX"
+    ],
+    "ETC": [
+      "Ethereum Classic",
+      "ETC"
+    ],
+    "ONDO": [
+      "Ondo",
+      "ONDO"
+    ],
+    "BFUSD": [
+      "BFUSD",
+      "BFUSD"
+    ],
+    "USDY": [
+      "Ondo US Dollar Yield",
+      "USDY"
+    ],
+    "PUMP": [
+      "Pump.fun",
+      "PUMP"
+    ],
+    "GT": [
+      "Gate",
+      "GT"
+    ],
+    "WLD": [
+      "Worldcoin",
+      "WLD"
+    ],
+    "KCS": [
+      "KuCoin",
+      "KCS"
+    ],
+    "USTB": [
+      "Superstate Short Duration U.S. Government Securities Fund (USTB)",
+      "USTB"
+    ],
+    "POL": [
+      "POL (ex-MATIC)",
+      "POL"
+    ],
+    "MORPHO": [
+      "Morpho",
+      "MORPHO"
+    ],
+    "ENA": [
+      "Ethena",
+      "ENA"
+    ],
+    "QNT": [
+      "Quant",
+      "QNT"
+    ],
+    "EUTBL": [
+      "Spiko EU T-Bills Money Market Fund",
+      "EUTBL"
+    ],
+    "RENDER": [
+      "Render",
+      "RENDER"
+    ],
+    "TRUMP": [
+      "Official Trump",
+      "TRUMP"
+    ],
+    "NEXO": [
+      "NEXO",
+      "NEXO"
+    ],
+    "KAS": [
+      "Kaspa",
+      "KAS"
+    ],
+    "NIGHT": [
+      "Midnight",
+      "NIGHT"
+    ],
+    "ALGO": [
+      "Algorand",
+      "ALGO"
+    ],
+    "USDTB": [
+      "USDtb",
+      "USDTB"
+    ],
+    "JTRSY": [
+      "Janus Henderson Anemoy Treasury Fund",
+      "JTRSY"
+    ],
+    "USDD": [
+      "USDD",
+      "USDD"
+    ],
+    "FLR": [
+      "Flare",
+      "FLR"
+    ],
+    "OUSG": [
+      "OUSG",
+      "OUSG"
+    ],
+    "HASH": [
+      "Provenance Blockchain",
+      "HASH"
+    ],
+    "VET": [
+      "VeChain",
+      "VET"
+    ],
+    "XDC": [
+      "XDC Network",
+      "XDC"
+    ],
+    "BDX": [
+      "Beldex",
+      "BDX"
+    ],
+    "STABLE": [
+      "​​Stable",
+      "STABLE"
+    ],
+    "YLDS": [
+      "YLDS",
+      "YLDS"
+    ],
+    "JUP": [
+      "Jupiter",
+      "JUP"
+    ],
+    "GHO": [
+      "GHO",
+      "GHO"
+    ],
+    "BONK": [
+      "Bonk",
+      "BONK"
+    ],
+    "USD0": [
+      "Usual USD",
+      "USD0"
+    ],
+    "PENGU": [
+      "Pudgy Penguins",
+      "PENGU"
+    ],
+    "CAKE": [
+      "PancakeSwap",
+      "CAKE"
+    ],
+    "TUSD": [
+      "TrueUSD",
+      "TUSD"
+    ],
+    "VIRTUAL": [
+      "Virtuals Protocol",
+      "VIRTUAL"
+    ],
+    "A7A5": [
+      "A7A5",
+      "A7A5"
+    ]
+  },
+  "EXCHANGE": {
+    "GATE": [
+      "Gate"
+    ],
+    "COINBASE_EXCHANGE": [
+      "Coinbase Exchange"
+    ],
+    "BITGET": [
+      "Bitget"
+    ],
+    "MEXC": [
+      "MEXC"
+    ],
+    "COINSTORE": [
+      "Coinstore"
+    ],
+    "LBANK": [
+      "LBank"
+    ],
+    "CRYPTO_COM_EXCHANGE": [
+      "Crypto.com Exchange"
+    ],
+    "BINGX": [
+      "BingX"
+    ],
+    "BULLISH": [
+      "Bullish"
+    ],
+    "BITSTAMP_BY_ROBINHOOD": [
+      "Bitstamp by Robinhood"
+    ],
+    "HASHKEY_EXCHANGE": [
+      "HashKey Exchange"
+    ],
+    "CEX_IO": [
+      "CEX.IO"
+    ],
+    "BACKPACK_EXCHANGE_": [
+      "Backpack Exchange "
+    ],
+    "COINW": [
+      "CoinW"
+    ],
+    "BITMART": [
+      "BitMart"
+    ],
+    "TAPBIT": [
+      "Tapbit"
+    ],
+    "XT_COM": [
+      "XT.COM"
+    ],
+    "TOOBIT": [
+      "Toobit"
+    ],
+    "DIGIFINEX": [
+      "DigiFinex"
+    ],
+    "UPBIT": [
+      "Upbit"
+    ],
+    "WEEX": [
+      "WEEX"
+    ],
+    "ASCENDEX_(BITMAX)": [
+      "AscendEX (BitMax)"
+    ],
+    "WHITEBIT": [
+      "WhiteBIT"
+    ],
+    "OURBIT": [
+      "Ourbit"
+    ],
+    "HIBT": [
+      "Hibt"
+    ],
+    "PHEMEX": [
+      "Phemex"
+    ],
+    "BITUNIX": [
+      "Bitunix"
+    ],
+    "BITRUE": [
+      "Bitrue"
+    ],
+    "TOTHEMOON": [
+      "Tothemoon"
+    ],
+    "COINEX": [
+      "CoinEx"
+    ],
+    "BITKUB": [
+      "Bitkub"
+    ],
+    "COINS_PH": [
+      "Coins.ph"
+    ],
+    "NONKYC_IO": [
+      "Nonkyc.io"
+    ],
+    "BITCOINTRY": [
+      "Bitcointry"
+    ],
+    "BYBIT_EU": [
+      "Bybit EU"
+    ],
+    "OSL_HK": [
+      "OSL HK"
+    ],
+    "INDODAX": [
+      "Indodax"
+    ],
+    "LEVEX": [
+      "LeveX"
+    ],
+    "DERIBIT_SPOT": [
+      "Deribit Spot"
+    ],
+    "VALR": [
+      "VALR"
+    ],
+    "LUNO": [
+      "Luno"
+    ]
+  }
+}
