@@ -47,8 +47,25 @@ def get_baseline(rule_tag, window_minutes, window_start_dt):
     with get_connection() as conn:
         for delta in range(1, LOOKBACK_DAYS + 1):
             past_dt    = window_start_dt - timedelta(days=delta)
+            day_start  = past_dt.replace(hour=0, minute=0, second=0, microsecond=0)
+            day_end    = day_start + timedelta(days=1)
             slot_start = (past_dt - margin).isoformat()
             slot_end   = (past_dt + margin).isoformat()
+
+            coverage_row = conn.execute(
+                """
+                SELECT 1
+                FROM tweet_counts
+                WHERE window_minutes = ?
+                  AND window_start  >= ?
+                  AND window_start  <  ?
+                LIMIT 1
+                """,
+                (window_minutes, day_start.isoformat(), day_end.isoformat()),
+            ).fetchone()
+
+            if not coverage_row:
+                continue
 
             row = conn.execute(
                 """
@@ -63,6 +80,8 @@ def get_baseline(rule_tag, window_minutes, window_start_dt):
 
             if row and row["avg_count"] is not None:
                 daily_counts.append(row["avg_count"])
+            else:
+                daily_counts.append(0.0)
 
     if daily_counts:
         return sum(daily_counts) / len(daily_counts), len(daily_counts)

@@ -86,11 +86,15 @@
 - [x] Auto-update entity dictionary from CoinGecko API (`update_entities.py`, `entities_auto.json`)
   - Fetches top 100 coins and top 50 exchanges daily; automatically adds new entities
   - Restarts the service automatically when new entities are detected
-- [ ] Set up cron job on VPS (run `update_entities.py` daily at 4:00 AM)
-- [ ] Rule priority design within the 1,000-rule limit of Filtered Stream
-- [ ] Re-run flow for `seed_baseline.py` when new rules are added
-- [ ] Scoring threshold tuning (fix zero-window bias)
+- [x] Set up cron job on VPS (run `update_entities.py` daily at 4:00 AM)
+  - Recommended: `0 4 * * * cd /root/trend_detection && /root/trend_detection/venv/bin/python update_entities.py >> logs/update_entities.log 2>&1`
+- [x] Rule priority design within the 1,000-rule limit of Filtered Stream
+  - Added category-based priority ordering in `rules_config.py` so the highest-priority rules survive truncation
+- [x] Re-run flow for `seed_baseline.py` when new rules are added
+  - `python seed_baseline.py --missing-only` now fetches 7-day baseline only for rule tags missing from `tweet_counts`
+- [x] Scoring threshold tuning (fix zero-window bias)
   - Current issue: time windows with 0 tweets are excluded from baseline, inflating the average
+  - Fix: `seed_baseline.py` preserves zero-count windows and `scorer.py` treats covered-but-missing days as zero
 
 ---
 

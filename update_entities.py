@@ -9,7 +9,7 @@ update_entities.py - CoinGecko API からエンティティを自動取得・更
 実行タイミング:
   VPS の cron で毎日 1 回実行する（例: 毎朝 4:00 JST）
   crontab 設定例:
-    0 4 * * * cd /root/trend_detection && source venv/bin/activate && python update_entities.py >> logs/update_entities.log 2>&1
+    0 4 * * * cd /root/trend_detection && /root/trend_detection/venv/bin/python update_entities.py >> logs/update_entities.log 2>&1
 
 注意:
   CoinGecko Lite プランの API キーを .env の COINGECKO_API_KEY に設定すること。

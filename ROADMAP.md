@@ -86,11 +86,15 @@
 - [x] CoinGecko API によるエンティティ自動更新（`update_entities.py`, `entities_auto.json`）
   - 毎日上位100コイン・上位50取引所を取得し新規エンティティを自動追加
   - 新規追加があればサービスを自動再起動
-- [ ] VPS での cron 設定（毎日4時に `update_entities.py` を自動実行）
-- [ ] Filtered Stream の1,000ルール上限に対するルール優先度設計
-- [ ] ルール追加時の `seed_baseline.py` 再実行フロー整備
-- [ ] スコアリング閾値のチューニング（ゼロウィンドウバイアスの解消）
+- [x] VPS での cron 設定（毎日4時に `update_entities.py` を自動実行）
+  - 推奨設定: `0 4 * * * cd /root/trend_detection && /root/trend_detection/venv/bin/python update_entities.py >> logs/update_entities.log 2>&1`
+- [x] Filtered Stream の1,000ルール上限に対するルール優先度設計
+  - `rules_config.py` でカテゴリ優先度を導入し、上限超過時は上位ルールを残す
+- [x] ルール追加時の `seed_baseline.py` 再実行フロー整備
+  - `python seed_baseline.py --missing-only` で未投入ルールのみ7日分を取得
+- [x] スコアリング閾値のチューニング（ゼロウィンドウバイアスの解消）
   - 現状：ツイート0件の時間帯がベースラインに含まれず平均が高くなる問題
+  - 対応: `seed_baseline.py` でゼロ件窓も保持し、`scorer.py` でもカバレッジがある日は 0 件として平均に反映
 
 ---
 

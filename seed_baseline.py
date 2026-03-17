@@ -13,9 +13,14 @@ seed_baseline.py - 過去7日分のベースラインデータを一括投入す
   2. 5分窓に集計して tweet_counts テーブルに INSERT
   3. 既存レコードは上書きしない（実データ優先）
 
+再実行フロー:
+  - 全ルール再取得: `python seed_baseline.py`
+  - 新規ルールだけ取得: `python seed_baseline.py --missing-only`
+
 実行タイミング:
   初回のみ実行すれば OK。以後は Filtered Stream が自動蓄積する。
 """
+import argparse
 import os
 import time
 import requests
@@ -36,6 +41,18 @@ def _headers() -> dict:
     if not token:
         raise EnvironmentError("BEARER_TOKEN が .env に設定されていません。")
     return {"Authorization": f"Bearer {token}"}
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Seed 7-day baseline data from X counts API."
+    )
+    parser.add_argument(
+        "--missing-only",
+        action="store_true",
+        help="tweet_counts に未投入の rule_tag だけを対象にする",
+    )
+    return parser.parse_args()
 
 
 # ------------------------------------------------------------------
@@ -93,9 +110,6 @@ def aggregate_to_5min(minute_data: list) -> dict:
     windows: dict = {}
 
     for item in minute_data:
-        if item["tweet_count"] == 0:
-            continue
-
         # "2026-03-03T05:00:00.000Z" → datetime
         raw = item["start"].replace("Z", "+00:00")
         dt  = datetime.fromisoformat(raw)
@@ -107,6 +121,26 @@ def aggregate_to_5min(minute_data: list) -> dict:
         windows[key] = windows.get(key, 0) + item["tweet_count"]
 
     return windows
+
+
+def get_target_rules(missing_only: bool) -> list[dict]:
+    if not missing_only:
+        return STREAM_RULES
+
+    with get_connection() as conn:
+        existing_tags = {
+            row["rule_tag"]
+            for row in conn.execute(
+                """
+                SELECT DISTINCT rule_tag
+                FROM tweet_counts
+                WHERE window_minutes = ?
+                """,
+                (WINDOW_MINUTES,),
+            ).fetchall()
+        }
+
+    return [rule for rule in STREAM_RULES if rule["tag"] not in existing_tags]
 
 
 # ------------------------------------------------------------------
@@ -146,6 +180,8 @@ def insert_baseline(rule_tag: str, windows: dict) -> int:
 # ------------------------------------------------------------------
 
 def main():
+    args = parse_args()
+
     print("=" * 62)
     print("  Baseline Seeder - 過去7日分のベースラインデータ投入")
     print("=" * 62)
@@ -159,21 +195,28 @@ def main():
     start_iso = start_time.strftime("%Y-%m-%dT%H:%M:%SZ")
     end_iso   = end_time.strftime("%Y-%m-%dT%H:%M:%SZ")
 
+    init_db()
+    target_rules = get_target_rules(args.missing_only)
+
     print(f"\n  取得範囲  : {start_iso}")
     print(f"            〜 {end_iso}")
-    print(f"  対象ルール: {len(STREAM_RULES)} 件")
-    print(f"  窓サイズ  : {WINDOW_MINUTES} 分\n")
+    print(f"  対象ルール: {len(target_rules)} 件")
+    print(f"  窓サイズ  : {WINDOW_MINUTES} 分")
+    print(f"  実行モード: {'missing-only' if args.missing_only else 'full'}\n")
 
-    init_db()
+    if not target_rules:
+        print("  対象ルールはありません。終了します。")
+        print("=" * 62)
+        return
 
     total_inserted    = 0
     total_raw_tweets  = 0
 
-    for i, rule in enumerate(STREAM_RULES, 1):
+    for i, rule in enumerate(target_rules, 1):
         tag   = rule["tag"]
         query = rule["value"]
 
-        print(f"[{i}/{len(STREAM_RULES)}] {tag}")
+        print(f"[{i}/{len(target_rules)}] {tag}")
         print(f"  クエリ: {query[:70]}...")
 
         try:
@@ -188,11 +231,14 @@ def main():
             print(f"  → {len(minute_data):,} 分分のカウント取得 / 合計 {raw_total:,} tweets")
 
             windows   = aggregate_to_5min(minute_data)
-            non_zero  = len(windows)
+            non_zero  = sum(1 for count in windows.values() if count > 0)
             inserted  = insert_baseline(tag, windows)
             total_inserted += inserted
 
-            print(f"  → {non_zero:,} 窓（{WINDOW_MINUTES}分窓）を生成 / {inserted:,} 件を DB に投入")
+            print(
+                f"  → {len(windows):,} 窓を生成 "
+                f"(うち非ゼロ {non_zero:,} 窓) / {inserted:,} 件を DB に投入"
+            )
 
         except requests.exceptions.HTTPError as e:
             print(f"  ❌ HTTPエラー: {e.response.status_code} - {e.response.text}")
@@ -200,7 +246,7 @@ def main():
             print(f"  ❌ エラー: {e}")
 
         print()
-        if i < len(STREAM_RULES):
+        if i < len(target_rules):
             time.sleep(REQUEST_INTERVAL)
 
     print("=" * 62)

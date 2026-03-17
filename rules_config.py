@@ -100,6 +100,24 @@ TEST_RULES = [
 MAX_RULES = 1000
 MAX_QUERY_LENGTH = 1024
 
+ENTITY_CATEGORY_PRIORITY = {
+    "CRYPTO": 100,
+    "EXCHANGE": 95,
+    "STABLECOIN": 90,
+    "DEFI": 80,
+    "LAYER2": 70,
+    "REGULATOR": 60,
+}
+
+EVENT_CATEGORY_PRIORITY = {
+    "SECURITY": 100,
+    "EXCHANGE_ISSUE": 95,
+    "REGULATORY": 90,
+    "MARKET_SHOCK": 80,
+    "PROTOCOL": 75,
+    "LISTING": 60,
+}
+
 
 def _to_query_term(term: str) -> str:
     """スペースを含む語句をクォートで囲む"""
@@ -108,6 +126,15 @@ def _to_query_term(term: str) -> str:
 
 def _build_or_clause(terms: list[str]) -> str:
     return " OR ".join(_to_query_term(t) for t in terms)
+
+
+def _rule_priority(entity_cat: str, event_cat: str) -> tuple[int, int, str, str]:
+    return (
+        ENTITY_CATEGORY_PRIORITY.get(entity_cat, 0),
+        EVENT_CATEGORY_PRIORITY.get(event_cat, 0),
+        entity_cat,
+        event_cat,
+    )
 
 
 def generate_rules() -> list[dict]:
@@ -132,7 +159,23 @@ def generate_rules() -> list[dict]:
                     skipped.append((tag, len(value)))
                     continue
 
-                rules.append({"value": value, "tag": tag})
+                rules.append(
+                    {
+                        "value": value,
+                        "tag": tag,
+                        "_priority": _rule_priority(entity_cat, event_cat),
+                    }
+                )
+
+    rules.sort(
+        key=lambda rule: (
+            -rule["_priority"][0],
+            -rule["_priority"][1],
+            rule["_priority"][2],
+            rule["_priority"][3],
+            rule["tag"],
+        )
+    )
 
     if skipped:
         print(f"[RULES] ⚠️  クエリ長超過のためスキップしたルール ({len(skipped)}件):")
@@ -141,8 +184,10 @@ def generate_rules() -> list[dict]:
 
     if len(rules) > MAX_RULES:
         print(f"[RULES] ⚠️  ルール数が上限({MAX_RULES})を超えています: {len(rules)}件")
-        print("[RULES]    先頭1,000件を使用します。優先度設計を検討してください。")
+        print("[RULES]    優先度順に上位1,000件を使用します。")
         rules = rules[:MAX_RULES]
+
+    rules = [{"value": rule["value"], "tag": rule["tag"]} for rule in rules]
 
     print(f"[RULES] 生成ルール数: {len(rules)}")
     return rules
