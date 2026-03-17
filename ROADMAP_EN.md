@@ -76,16 +76,17 @@
 
 ---
 
-### Phase 6: Rule Expansion & Scale-Up (In Progress)
+### 🔄 Phase 6: Rule Expansion & Scale-Up (In Progress)
 
 **Goal**: Expand from 3 PoC rules to production scale (hundreds of rules)
 
 - [x] Entity dictionary design (`entities.py`) — BTC / Bitcoin / ビットコイン etc.
 - [x] Event keyword dictionary design (`event_keywords.py`) — hack / exploit / breach etc.
-- [x] Auto-generation script for Entity × EventKeyword rule combinations (`rules_config.py`)
+- [x] Auto-generation of Entity × EventKeyword rule combinations (`rules_config.py`) — currently 930 rules
 - [x] Auto-update entity dictionary from CoinGecko API (`update_entities.py`, `entities_auto.json`)
-  - Daily cron job fetches top 100 coins and top 50 exchanges
-  - New entities are automatically added; service restarts if changes are detected
+  - Fetches top 100 coins and top 50 exchanges daily; automatically adds new entities
+  - Restarts the service automatically when new entities are detected
+- [ ] Set up cron job on VPS (run `update_entities.py` daily at 4:00 AM)
 - [ ] Rule priority design within the 1,000-rule limit of Filtered Stream
 - [ ] Re-run flow for `seed_baseline.py` when new rules are added
 - [ ] Scoring threshold tuning (fix zero-window bias)

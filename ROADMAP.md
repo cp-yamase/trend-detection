@@ -76,13 +76,17 @@
 
 ---
 
-### フェーズ6: ルール拡張・スケールアップ（未着手）
+### 🔄 フェーズ6: ルール拡張・スケールアップ（進行中）
 
 **目的**: PoC用の3ルールから、実運用規模（数十〜数百ルール）へ拡張する
 
-- [ ] エンティティ辞書の設計（BTC / Bitcoin / ビットコイン 等の表記ゆれ統一）
-- [ ] イベントキーワード辞書の設計（hack / exploit / breach 等のカテゴリ分類）
-- [ ] Entity × EventKeyword のルール組み合わせ自動生成スクリプト
+- [x] エンティティ辞書の設計（`entities.py`）— BTC / Bitcoin / ビットコイン 等の表記ゆれ統一
+- [x] イベントキーワード辞書の設計（`event_keywords.py`）— hack / exploit / breach 等のカテゴリ分類
+- [x] Entity × EventKeyword のルール組み合わせ自動生成（`rules_config.py`）— 現在 930ルール
+- [x] CoinGecko API によるエンティティ自動更新（`update_entities.py`, `entities_auto.json`）
+  - 毎日上位100コイン・上位50取引所を取得し新規エンティティを自動追加
+  - 新規追加があればサービスを自動再起動
+- [ ] VPS での cron 設定（毎日4時に `update_entities.py` を自動実行）
 - [ ] Filtered Stream の1,000ルール上限に対するルール優先度設計
 - [ ] ルール追加時の `seed_baseline.py` 再実行フロー整備
 - [ ] スコアリング閾値のチューニング（ゼロウィンドウバイアスの解消）
